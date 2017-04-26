@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "required": [
+    "time",
+    "value"
+  ],
+  "items": {
+    "type": "object",
+    "properties": {
+      "time": {
+        "description": "The date the entry was created.",
+        "type": "string"
+      },
+      "value": {
+        "description": "The value of the entry.",
+        "type": "number"
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "sku_label": "VCC-REP-BRU1",
+    "sku_tag": "Veeam Cloud Connect @ Mobistar Enterprise Services, Brussels",
+    "sku_description": "An off-site backup repository for Veeam located in the Mobistar Enterprise Services datacenter.",
+    "sku_orderable": true,
+    "sku_quantity_max": 5000,
+    "sku_price": 0.45,
+    "sku_trial": 30,
+    "sku_type": "subscription",
+    "sku_discounts": {
+      "3": 2,
+      "6": 3,
+      "12": 5
+    },
+    "properties": {
+      "vcc_hostname": "https://vcc-bru1.cloudplaza.eu",
+      "vcc_wan_acceleration": true,
+      "datacenter_tag": "BRU1",
+      "datacenter_name": "Mobistar Enterprise Services",
+      "datacenter_address": "Leuvensesteenweg 641",
+      "datacenter_zip": "1930",
+      "datacenter_city": "Zaventem",
+      "datacenter_country": "Belgium"
+    },
+    "created_at": "2015-07-17 09:54:00",
+    "updated_at": "2015-07-17 09:54:00"
+  },
+  {
+    "id": 2,
+    "sku_label": "VCC-REP-BRU2",
+    "sku_tag": "Veeam Cloud Connect @ Belgacom Netcenter II, Brussels",
+    "sku_description": "An off-site backup repository for Veeam located in the Belgacom Netcenter II datacenter.",
+    "sku_orderable": true,
+    "sku_quantity_max": 2000,
+    "sku_price": 0.45,
+    "sku_trial": 30,
+    "sku_type": "subscription",
+    "sku_discounts": {
+      "3": 2,
+      "6": 3,
+      "12": 5
+    },
+    "properties": {
+      "vcc_hostname": "https://vcc-bru2.cloudplaza.eu",
+      "vcc_wan_acceleration": true,
+      "datacenter_tag": "BRU2",
+      "datacenter_name": "Belgacom Netcenter II",
+      "datacenter_address": "Ritterwegelaan 2",
+      "datacenter_zip": "1830",
+      "datacenter_city": "Machelen",
+      "datacenter_country": "Belgium"
+    },
+    "created_at": "2015-07-17 09:54:00",
+    "updated_at": "2015-07-17 09:54:00"
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "password": {
+      "description": "The new password of the tenant.",
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 50
+    },
+    "email": {
+      "description": "The new email address of the tenant.",
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 60
+    },
+    "volume_quota": {
+      "description": "The new quota assigned to the tenant.",
+      "type": "integer"
+    },
+    "subscription_id": {
+      "description": "The new subscription assigned to the tenant.",
+      "type": "integer"
+    }
+  }
+}

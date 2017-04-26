@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "required": [
+    "username"
+  ],
+  "properties": {
+    "username": {
+      "description": "The username of the account.",
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 50
+    }
+  }
+}

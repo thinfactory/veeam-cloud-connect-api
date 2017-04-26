@@ -1,0 +1,54 @@
+[
+  {
+    "id": 1,
+    "status": "active",
+    "subscription_id": 1,
+    "username": "google vcc trial",
+    "email": "vcc_trial@google.com",
+    "volume_name": "VCC-VDM0001-Z",
+    "volume_quota": 100,
+    "volume_used": 12.1,
+    "volume_available": 88.9,
+    "created_at": "2015-07-17 09:54:00",
+    "updated_at": "2015-07-17 09:54:00"
+  },
+  {
+    "id": 2,
+    "status": "active",
+    "subscription_id": 2,
+    "username": "google europe north",
+    "email": "vcc_eu_north@google.com",
+    "volume_name": "VCC-VDM0011-X",
+    "volume_quota": 3000,
+    "volume_used": 1450.73,
+    "volume_available": 1550.27,
+    "created_at": "2015-07-17 09:54:00",
+    "updated_at": "2015-07-17 09:54:00"
+  },
+  {
+    "id": 3,
+    "status": "active",
+    "subscription_id": 2,
+    "username": "google europe west",
+    "email": "vcc_eu_west@google.com",
+    "volume_name": "VCC-VDM0011-X",
+    "volume_quota": 2000,
+    "volume_used": 786.2,
+    "volume_available": 1214.8,
+    "created_at": "2015-07-17 11:06:43",
+    "updated_at": "2015-07-17 11:06:43"
+  },
+  {
+    "id": 4,
+    "status": "active",
+    "subscription_id": 3,
+    "username": "google north america",
+    "email": "vcc_us_na@google.com",
+    "volume_name": "VCC-VDM-0015-L",
+    "volume_quota": 1000,
+    "volume_used": 391.85,
+    "volume_available": 609.15,
+    "created_at": "2015-07-17 11:08:11",
+    "updated_at": "2015-07-17 11:08:11"
+  }
+]

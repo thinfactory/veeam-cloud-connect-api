@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "required": [
+    "catalog_id",
+    "sku_quantity"
+  ],
+  "properties": {
+    "catalog_id": {
+      "description": "The unique identifier of the catalog entry to subscribe to.",
+      "type": "integer"
+    },
+    "sku_quantity": {
+      "description": "The SKU quantity; set to `0` for a no-commitment, monthly recurring subscription.",
+      "type": "integer"
+    },
+    "sku_trial": {
+      "description": "Indicate whether this is a trial subscription; only applicable if sku_quantity is `0`.",
+      "type": "boolean"
+    },
+    "sku_discount": {
+      "description": "The subscription period for a pre-paid commitment with a commercial discount; only applicable if sku_quantity is not `0`, the discount value comes from `/catalog/{catalog_id}->sku_discount`",
+      "type": "integer"
+    }
+  }
+}

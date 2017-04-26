@@ -1,0 +1,13 @@
+{
+  "username": "Google Inc",
+  "password": "my super awesome password",
+  "email": "vcc@google.com",
+  "billing_organization": "Google Inc.",
+  "billing_vat": "US EIN 77-0493581",
+  "billing_contact": "Finance Department",
+  "billing_email": "finance@google.com",
+  "billing_address": "1600 Amphitheatre Parkway",
+  "billing_zip": "CA 94043",
+  "billing_city": "Mountain View",
+  "billing_country": "US"
+}

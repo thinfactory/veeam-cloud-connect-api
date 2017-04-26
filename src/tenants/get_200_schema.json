@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "required": [
+    "id",
+    "status",
+    "subscription_id",
+    "username",
+    "email",
+    "created_at",
+    "updated_at"
+  ],
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "description": "The unique identifier of the tenant.",
+        "type": "integer"
+      },
+      "status": {
+        "description": "The status of the tenant.",
+        "type": "string",
+        "enum": [
+          "active",
+          "pending",
+          "expired",
+          "suspended_invoice_overdue",
+          "provisioning",
+          "deprovisioning"
+        ]
+      },
+      "subscription_id": {
+        "description": "The unique identifier of the subscription entry.",
+        "type": "integer"
+      },
+      "username": {
+        "description": "The username of the tenant.",
+        "type": "string",
+        "minLength": 5,
+        "maxLength": 50
+      },
+      "email": {
+        "description": "The email address of the tenant.",
+        "type": "string",
+        "minLength": 5,
+        "maxLength": 60
+      },
+      "volume_name": {
+        "description": "The name of the storage volume the data resides on; only applicable if status is not `pending`.",
+        "type": "string"
+      },
+      "volume_quota": {
+        "description": "The quota assigned to the tenant.",
+        "type": "integer"
+      },
+      "volume_used": {
+        "description": "The amount of storage in use; only applicable if the value is greater than `0`.",
+        "type": "number"
+      },
+      "volume_available": {
+        "description": "The amount of storage available; only applicable if the value is greater than `0`.",
+        "type": "number"
+      },
+      "created_at": {
+        "description": "The date the tenant was created.",
+        "type": "string"
+      },
+      "updated_at": {
+        "description": "The date the tenant was last modified.",
+        "type": "string"
+      }
+    }
+  }
+}

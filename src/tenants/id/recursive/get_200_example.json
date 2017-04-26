@@ -1,0 +1,50 @@
+{
+  "id": 1,
+  "status": "active",
+  "subscription_id": 1,
+  "username": "google vcc trial",
+  "email": "vcc_trial@google.com",
+  "volume_name": "VCC-VDM0001-Z",
+  "volume_quota": 100,
+  "volume_used": 12.1,
+  "volume_available": 88.9,
+  "$subscription": {
+    "id": 1,
+    "status": "trial",
+    "catalog_id": 1,
+    "period_start": "2015-07-17",
+    "sku_used": 100,
+    "$catalog": {
+      "id": 1,
+      "sku_label": "VCC-REP-BRU1",
+      "sku_tag": "Veeam Cloud Connect @ Mobistar Enterprise Services, Brussels",
+      "sku_description": "An off-site backup repository for Veeam located in the Mobistar Enterprise Services datacenter.",
+      "sku_orderable": true,
+      "sku_quantity_max": 5000,
+      "sku_price": 0.45,
+      "sku_trial": 30,
+      "sku_type": "subscription",
+      "sku_discounts": {
+        "3": 2,
+        "6": 3,
+        "12": 5
+      },
+      "properties": {
+        "vcc_hostname": "https://vcc-bru1.cloudplaza.eu",
+        "vcc_wan_acceleration": true,
+        "datacenter_tag": "BRU1",
+        "datacenter_name": "Mobistar Enterprise Services",
+        "datacenter_address": "Leuvensesteenweg 641",
+        "datacenter_zip": "1930",
+        "datacenter_city": "Zaventem",
+        "datacenter_country": "Belgium"
+      },
+      "created_at": "2015-07-17 09:54:00",
+      "updated_at": "2015-07-17 09:54:00"
+    },
+    "created_at": "2015-07-17 09:54:00",
+    "updated_at": "2015-07-17 09:54:00"
+  },
+  "created_at": "2015-07-17 09:54:00",
+  "updated_at": "2015-07-17 09:54:00"
+}

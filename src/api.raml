@@ -1,0 +1,1695 @@
+#%RAML 1.0
+title: Veeam Cloud Connect @ cloudPlaza
+version: v17.1
+baseUri: https://vcc-api.cloudplaza.eu/v17.1
+mediaType: application/json
+securitySchemes:
+  basic:
+    type: Basic Authentication
+documentation:
+  - title: About
+    content: |
+      Welcome to the **Veeam Cloud Connect** for **cloudPlaza** API
+      documentation version **{version}**.
+
+      If you have any problems, requests, or ideas to improve this API or it's
+      documentation, please contact [support](mailto:support@thinfactory.com).
+  - title: Schema
+    content: |
+      All API requests and responses are sent over HTTPS as JSON, and are
+      accessible via the base URL.
+
+      ```
+      https://vcc-api.cloudplaza.eu/{version}/
+      ```
+
+      Empty fields are omitted from JSON responses; instances where this might
+      occur are marked as non-required fields.
+
+      ```
+      Content-Type: application/json
+      ```
+  - title: Authentication
+    content: |
+      Some API components are secured by Basic Authentication as described in
+      RFC2617.
+
+      ```
+      $ curl -u "myUsername" https://vcc-api.cloudplaza.eu/{version}/whatever
+      ```
+
+      All unauthorized requests or authentication failures will return *401
+      Unauthorized*.
+
+      ```
+      HTTP/1.1 401 Unauthorized
+      Status: 401 Unauthorized
+      WWW-Authenticate: Basic realm ="Veeam Cloud Connect - cloudPlaza"
+      ```
+  - title: Parameters
+    content: |
+      Many API methods take parameters encoded as JSON with a
+      Content-Type of 'application/json'
+
+      ```
+      $ curl -u "myUsername" -d '{"parameter":"value"}' https://vcc-api.cloudplaza.eu/{version}/whatever
+      ```
+  - title: Cross Origin Resource Sharing & XMLHttpRequest
+    content: |
+      This API support Cross Origin Resource Sharing (CORS) for XMLHttpRequest
+      AJAX requests from any origin; you can read the
+      [CORS W3C Recommentation](http://www.w3.org/TR/cors) or
+      [this intro](http://code.google.com/p/html5security/wiki/CrossOriginRequestSecurity)
+      from the HTML5 Security Guide.
+
+      ```
+      Access-Control-Allow-Origin: *
+      ```
+  - title: Time Zone
+    content: |
+      All timestamps are in the Coordinated Universal Time (UTC)
+      timezone.
+/account:
+  displayName: ACCOUNT
+  description: Manage your account.
+  options:
+    description: Retrieve the XHR options.
+    responses:
+      204:
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+          Access-Control-Allow-Methods:
+            description: The supported request methods.
+            type: string
+            required: true
+            example: |
+              GET, POST, PUT, DELETE
+          Access-Control-Allow-Headers:
+            description: The supported request headers.
+            type: string
+            required: true
+            example: |
+              Authorization
+  get:
+    description: Retrieve your account information.
+    securedBy: [basic]
+    responses:
+      200:
+        description: The account information.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+        body:
+          application/json:
+            schema: !include account/get_200_schema.json
+            example: !include account/get_200_example.json
+      401:
+        description: Failed to authenticate the request.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+          WWW-Authenticate:
+            description: The basic authentication realm.
+            type: string
+            required: true
+            example: |
+              Basic realm ="Veeam Cloud Connect - cloudPlaza"
+  post:
+    description: Create a new account.
+    body:
+      application/json:
+        schema: !include account/post_schema.json
+        example: !include account/post_example.json
+    responses:
+      201:
+        description: The account was successfully created.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+          Location:
+            description: Relative URL of the created account.
+            type: string
+            required: true
+            example: |
+              /{version}/account
+      400:
+        description: A client error occurred.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+        body:
+          application/json:
+            schema: !include generic/error_schema.json
+            example: !include generic/error_example.json
+      500:
+        description: A server error occurred.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+        body:
+          application/json:
+            schema: !include generic/error_schema.json
+            example: !include generic/error_example.json
+  put:
+    description: Update an account.
+    securedBy: [basic]
+    body:
+      application/json:
+        schema: !include account/post_schema.json
+        example: !include account/post_example.json
+    responses:
+      204:
+        description: The account was successfully updated.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+      400:
+        description: A client error occurred.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+        body:
+          application/json:
+            schema: !include generic/error_schema.json
+            example: !include generic/error_example.json
+      500:
+        description: A server error occurred.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+        body:
+          application/json:
+            schema: !include generic/error_schema.json
+            example: !include generic/error_example.json
+  /recursive:
+    options:
+      description: Retrieve the XHR options.
+      responses:
+        204:
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+            Access-Control-Allow-Methods:
+              description: The supported request methods.
+              type: string
+              required: true
+              example: |
+                GET, POST, PUT, DELETE
+            Access-Control-Allow-Headers:
+              description: The supported request headers.
+              type: string
+              required: true
+              example: |
+                Authorization
+    get:
+      description: Retrieve your account information, including all related objects.
+      securedBy: [basic]
+      responses:
+        200:
+          description: The account information, including all related objects.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+          body:
+            application/json:
+              schema: !include account/recursive/get_200_schema.json
+              example: !include account/recursive/get_200_example.json
+        401:
+          description: Failed to authenticate the request.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+            WWW-Authenticate:
+              description: The basic authentication realm.
+              type: string
+              required: true
+              example: |
+                Basic realm ="Veeam Cloud Connect - cloudPlaza"
+  /reset:
+    options:
+      description: Retrieve the XHR options.
+      responses:
+        204:
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+            Access-Control-Allow-Methods:
+              description: The supported request methods.
+              type: string
+              required: true
+              example: |
+                GET, POST, PUT, DELETE
+            Access-Control-Allow-Headers:
+              description: The supported request headers.
+              type: string
+              required: true
+              example: |
+                Authorization
+    post:
+      description: Request a temporary password token by e-mail.
+      body:
+        application/json:
+          schema: !include account/reset/post_schema.json
+          example: !include account/reset/post_example.json
+      responses:
+        204:
+          description: The temporary password token has been sent by e-mail.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+        400:
+          description: A client error occurred.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+          body:
+            application/json:
+              schema: !include generic/error_schema.json
+              example: !include generic/error_example.json
+        500:
+          description: A server error occurred.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+          body:
+            application/json:
+              schema: !include generic/error_schema.json
+              example: !include generic/error_example.json
+/catalog:
+  displayName: CATALOG
+  description: Manage the catalog.
+  options:
+    description: Retrieve the XHR options.
+    responses:
+      204:
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+          Access-Control-Allow-Methods:
+            description: The supported request methods.
+            type: string
+            required: true
+            example: |
+              GET, POST, PUT, DELETE
+          Access-Control-Allow-Headers:
+            description: The supported request headers.
+            type: string
+            required: true
+            example: |
+              Authorization
+  get:
+    description: Retrieve all the catalog entries.
+    responses:
+      200:
+        description: The catalog information.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+        body:
+          application/json:
+            schema: !include catalog/get_200_schema.json
+            example: !include catalog/get_200_example.json
+      204:
+        description: The catalog is empty.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+  /{id}:
+    options:
+      description: Retrieve the XHR options.
+      responses:
+        204:
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+            Access-Control-Allow-Methods:
+              description: The supported request methods.
+              type: string
+              required: true
+              example: |
+                GET, POST, PUT, DELETE
+            Access-Control-Allow-Headers:
+              description: The supported request headers.
+              type: string
+              required: true
+              example: |
+                Authorization
+    get:
+      description: Retrieve a specific catalog entry.
+      responses:
+        200:
+          description: The catalog information.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+          body:
+            application/json:
+              schema: !include catalog/id/get_200_schema.json
+              example: !include catalog/id/get_200_example.json
+        404:
+          description: The catalog id was not found.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+          body:
+            application/json:
+              schema: !include generic/error_schema.json
+              example: !include generic/error_example.json
+/subscriptions:
+  displayName: SUBSCRIPTIONS
+  description: Manage your subscriptions.
+  options:
+    description: Retrieve the XHR options.
+    responses:
+      204:
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+          Access-Control-Allow-Methods:
+            description: The supported request methods.
+            type: string
+            required: true
+            example: |
+              GET, POST, PUT, DELETE
+          Access-Control-Allow-Headers:
+            description: The supported request headers.
+            type: string
+            required: true
+            example: |
+              Authorization
+  get:
+    description: Retrieve your subscriptions.
+    securedBy: [basic]
+    responses:
+      200:
+        description: The subscription information.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+        body:
+          application/json:
+            schema: !include subscriptions/get_200_schema.json
+            example: !include subscriptions/get_200_example.json
+      204:
+        description: There are no subscriptions.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+      401:
+        description: Failed to authenticate the request.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+          WWW-Authenticate:
+            description: The basic authentication realm.
+            type: string
+            required: true
+            example: |
+              Basic realm ="Veeam Cloud Connect - cloudPlaza"
+  post:
+    description: Subscribe to an offer from the catalog.
+    securedBy: [basic]
+    body:
+      application/json:
+        schema: !include subscriptions/post_schema.json
+        example: !include subscriptions/post_example.json
+    responses:
+      201:
+        description: The subscription was successfully created.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+          Location:
+            description: Relative URL of the created subscription.
+            type: string
+            required: true
+            example: |
+              /{version}/subscriptions/10
+      400:
+        description: A client error occurred.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+        body:
+          application/json:
+            schema: !include generic/error_schema.json
+            example: !include generic/error_example.json
+      500:
+        description: A server error occurred.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+        body:
+          application/json:
+            schema: !include generic/error_schema.json
+            example: !include generic/error_example.json
+  /recursive:
+    options:
+      description: Retrieve the XHR options.
+      responses:
+        204:
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+            Access-Control-Allow-Methods:
+              description: The supported request methods.
+              type: string
+              required: true
+              example: |
+                GET, POST, PUT, DELETE
+            Access-Control-Allow-Headers:
+              description: The supported request headers.
+              type: string
+              required: true
+              example: |
+                Authorization
+    get:
+      description: Retrieve your subscription information, including all related objects.
+      securedBy: [basic]
+      responses:
+        200:
+          description: The subscription information, including all related objects.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+          body:
+            application/json:
+              schema: !include subscriptions/recursive/get_200_schema.json
+              example: !include subscriptions/recursive/get_200_example.json
+        204:
+          description: There are no subscriptions.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+        401:
+          description: Failed to authenticate the request.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+            WWW-Authenticate:
+              description: The basic authentication realm.
+              type: string
+              required: true
+              example: |
+                Basic realm ="Veeam Cloud Connect - cloudPlaza"
+  /{id}:
+    options:
+      description: Retrieve the XHR options.
+      responses:
+        204:
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+            Access-Control-Allow-Methods:
+              description: The supported request methods.
+              type: string
+              required: true
+              example: |
+                GET, POST, PUT, DELETE
+            Access-Control-Allow-Headers:
+              description: The supported request headers.
+              type: string
+              required: true
+              example: |
+                Authorization
+    get:
+      description: Retrieve a specific subscription entry.
+      securedBy: [basic]
+      responses:
+        200:
+          description: The subscription information.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+          body:
+            application/json:
+              schema: !include subscriptions/id/get_200_schema.json
+              example: !include subscriptions/id/get_200_example.json
+        401:
+          description: Failed to authenticate the request.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+            WWW-Authenticate:
+              description: The basic authentication realm.
+              type: string
+              required: true
+              example: |
+                Basic realm ="Veeam Cloud Connect - cloudPlaza"
+        404:
+          description: The subscription id was not found.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+          body:
+            application/json:
+              schema: !include generic/error_schema.json
+              example: !include generic/error_example.json
+    /recursive:
+      options:
+        description: Retrieve the XHR options.
+        responses:
+          204:
+            headers:
+              Content-Type:
+                description: The data format of the response.
+                type: string
+                required: true
+                example: |
+                  application/json
+              Access-Control-Allow-Origin:
+                description: The supported XHR origins.
+                type: string
+                required: true
+                example: |
+                  *
+              Access-Control-Allow-Methods:
+                description: The supported request methods.
+                type: string
+                required: true
+                example: |
+                  GET, POST, PUT, DELETE
+              Access-Control-Allow-Headers:
+                description: The supported request headers.
+                type: string
+                required: true
+                example: |
+                  Authorization
+      get:
+        description: Retrieve a specific subscription entry, including all related objects.
+        securedBy: [basic]
+        responses:
+          200:
+            description: The subscription information, including all related objects.
+            headers:
+              Content-Type:
+                description: The data format of the response.
+                type: string
+                required: true
+                example: |
+                  application/json
+              Access-Control-Allow-Origin:
+                description: The supported XHR origins.
+                type: string
+                required: true
+                example: |
+                  *
+            body:
+              application/json:
+                schema: !include subscriptions/id/recursive/get_200_schema.json
+                example: !include subscriptions/id/recursive/get_200_example.json
+          401:
+            description: Failed to authenticate the request.
+            headers:
+              Content-Type:
+                description: The data format of the response.
+                type: string
+                required: true
+                example: |
+                  application/json
+              Access-Control-Allow-Origin:
+                description: The supported XHR origins.
+                type: string
+                required: true
+                example: |
+                  *
+              WWW-Authenticate:
+                description: The basic authentication realm.
+                type: string
+                required: true
+                example: |
+                  Basic realm ="Veeam Cloud Connect - cloudPlaza"
+          404:
+            description: The subscription id was not found.
+            headers:
+              Content-Type:
+                description: The data format of the response.
+                type: string
+                required: true
+                example: |
+                  application/json
+              Access-Control-Allow-Origin:
+                description: The supported XHR origins.
+                type: string
+                required: true
+                example: |
+                  *
+            body:
+              application/json:
+                schema: !include generic/error_schema.json
+                example: !include generic/error_example.json
+/tenants:
+  displayName: TENANTS
+  description: Manage your tenants.
+  options:
+    description: Retrieve the XHR options.
+    responses:
+      204:
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+          Access-Control-Allow-Methods:
+            description: The supported request methods.
+            type: string
+            required: true
+            example: |
+              GET, POST, PUT, DELETE
+          Access-Control-Allow-Headers:
+            description: The supported request headers.
+            type: string
+            required: true
+            example: |
+              Authorization
+  get:
+    description: Retrieve your tenants.
+    securedBy: [basic]
+    responses:
+      200:
+        description: The tenant information.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+        body:
+          application/json:
+            schema: !include tenants/get_200_schema.json
+            example: !include tenants/get_200_example.json
+      204:
+        description: There are no tenants.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+      401:
+        description: Failed to authenticate the request.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+          WWW-Authenticate:
+            description: The basic authentication realm.
+            type: string
+            required: true
+            example: |
+              Basic realm ="Veeam Cloud Connect - cloudPlaza"
+  post:
+    description: Create a new tenant.
+    securedBy: [basic]
+    body:
+      application/json:
+        schema: !include tenants/post_schema.json
+        example: !include tenants/post_example.json
+    responses:
+      201:
+        description: The tenant was successfully created.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+          Location:
+            description: Relative URL of the created tenant.
+            type: string
+            required: true
+            example: |
+              /{version}/tenants/10
+      400:
+        description: A client error occurred.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+        body:
+          application/json:
+            schema: !include generic/error_schema.json
+            example: !include generic/error_example.json
+      500:
+        description: A server error occurred.
+        headers:
+          Content-Type:
+            description: The data format of the response.
+            type: string
+            required: true
+            example: |
+              application/json
+          Access-Control-Allow-Origin:
+            description: The supported XHR origins.
+            type: string
+            required: true
+            example: |
+              *
+        body:
+          application/json:
+            schema: !include generic/error_schema.json
+            example: !include generic/error_example.json
+  /recursive:
+    options:
+      description: Retrieve the XHR options.
+      responses:
+        204:
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+            Access-Control-Allow-Methods:
+              description: The supported request methods.
+              type: string
+              required: true
+              example: |
+                GET, POST, PUT, DELETE
+            Access-Control-Allow-Headers:
+              description: The supported request headers.
+              type: string
+              required: true
+              example: |
+                Authorization
+    get:
+      description: Retrieve your tenant information, including all related objects.
+      securedBy: [basic]
+      responses:
+        200:
+          description: The tenant information, including all related objects.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+          body:
+            application/json:
+              schema: !include tenants/recursive/get_200_schema.json
+              example: !include tenants/recursive/get_200_example.json
+        204:
+          description: There are no tenants.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+        401:
+          description: Failed to authenticate the request.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+            WWW-Authenticate:
+              description: The basic authentication realm.
+              type: string
+              required: true
+              example: |
+                Basic realm ="Veeam Cloud Connect - cloudPlaza"
+  /{id}:
+    options:
+      description: Retrieve the XHR options.
+      responses:
+        204:
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+            Access-Control-Allow-Methods:
+              description: The supported request methods.
+              type: string
+              required: true
+              example: |
+                GET, POST, PUT, DELETE
+            Access-Control-Allow-Headers:
+              description: The supported request headers.
+              type: string
+              required: true
+              example: |
+                Authorization
+    get:
+      description: Retrieve a specific tenant entry.
+      securedBy: [basic]
+      responses:
+        200:
+          description: The tenant information.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+          body:
+            application/json:
+              schema: !include tenants/id/get_200_schema.json
+              example: !include tenants/id/get_200_example.json
+        401:
+          description: Failed to authenticate the request.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+            WWW-Authenticate:
+              description: The basic authentication realm.
+              type: string
+              required: true
+              example: |
+                Basic realm ="Veeam Cloud Connect - cloudPlaza"
+        404:
+          description: The tenant id was not found.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+          body:
+            application/json:
+              schema: !include generic/error_schema.json
+              example: !include generic/error_example.json
+    delete:
+      description: Remove a specific tenant entry.
+      securedBy: [basic]
+      responses:
+        202:
+          description: The tenant is queued for removal.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+        400:
+          description: A client error occurred.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+          body:
+            application/json:
+              schema: !include generic/error_schema.json
+              example: !include generic/error_example.json
+        401:
+          description: Failed to authenticate the request.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+            WWW-Authenticate:
+              description: The basic authentication realm.
+              type: string
+              required: true
+              example: |
+                Basic realm ="Veeam Cloud Connect - cloudPlaza"
+        404:
+          description: The tenant id was not found.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+          body:
+            application/json:
+              schema: !include generic/error_schema.json
+              example: !include generic/error_example.json
+        500:
+          description: A server error occurred.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+          body:
+            application/json:
+              schema: !include generic/error_schema.json
+              example: !include generic/error_example.json
+    put:
+      description: Update a tenant.
+      securedBy: [basic]
+      body:
+        application/json:
+          schema: !include tenants/id/post_schema.json
+          example: !include tenants/id/post_example.json
+      responses:
+        204:
+          description: The tenant update has been accepted.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+        400:
+          description: A client error occurred.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+          body:
+            application/json:
+              schema: !include generic/error_schema.json
+              example: !include generic/error_example.json
+        500:
+          description: A server error occurred.
+          headers:
+            Content-Type:
+              description: The data format of the response.
+              type: string
+              required: true
+              example: |
+                application/json
+            Access-Control-Allow-Origin:
+              description: The supported XHR origins.
+              type: string
+              required: true
+              example: |
+                *
+          body:
+            application/json:
+              schema: !include generic/error_schema.json
+              example: !include generic/error_example.json
+    /recursive:
+      options:
+        description: Retrieve the XHR options.
+        responses:
+          204:
+            headers:
+              Content-Type:
+                description: The data format of the response.
+                type: string
+                required: true
+                example: |
+                  application/json
+              Access-Control-Allow-Origin:
+                description: The supported XHR origins.
+                type: string
+                required: true
+                example: |
+                  *
+              Access-Control-Allow-Methods:
+                description: The supported request methods.
+                type: string
+                required: true
+                example: |
+                  GET, POST, PUT, DELETE
+              Access-Control-Allow-Headers:
+                description: The supported request headers.
+                type: string
+                required: true
+                example: |
+                  Authorization
+      get:
+        description: Retrieve a specific tenant entry, including all related objects.
+        securedBy: [basic]
+        responses:
+          200:
+            description: The tenant information, including all related objects.
+            headers:
+              Content-Type:
+                description: The data format of the response.
+                type: string
+                required: true
+                example: |
+                  application/json
+              Access-Control-Allow-Origin:
+                description: The supported XHR origins.
+                type: string
+                required: true
+                example: |
+                  *
+            body:
+              application/json:
+                schema: !include tenants/id/recursive/get_200_schema.json
+                example: !include tenants/id/recursive/get_200_example.json
+          401:
+            description: Failed to authenticate the request.
+            headers:
+              Content-Type:
+                description: The data format of the response.
+                type: string
+                required: true
+                example: |
+                  application/json
+              Access-Control-Allow-Origin:
+                description: The supported XHR origins.
+                type: string
+                required: true
+                example: |
+                  *
+              WWW-Authenticate:
+                description: The basic authentication realm.
+                type: string
+                required: true
+                example: |
+                  Basic realm ="Veeam Cloud Connect - cloudPlaza"
+          404:
+            description: The tenant id was not found.
+            headers:
+              Content-Type:
+                description: The data format of the response.
+                type: string
+                required: true
+                example: |
+                  application/json
+              Access-Control-Allow-Origin:
+                description: The supported XHR origins.
+                type: string
+                required: true
+                example: |
+                  *
+            body:
+              application/json:
+                schema: !include generic/error_schema.json
+                example: !include generic/error_example.json
+    /metrics/volume_used:
+      options:
+        description: Retrieve the XHR options.
+        responses:
+          204:
+            headers:
+              Content-Type:
+                description: The data format of the response.
+                type: string
+                required: true
+                example: |
+                  application/json
+              Access-Control-Allow-Origin:
+                description: The supported XHR origins.
+                type: string
+                required: true
+                example: |
+                  *
+              Access-Control-Allow-Methods:
+                description: The supported request methods.
+                type: string
+                required: true
+                example: |
+                  GET, POST, PUT, DELETE
+              Access-Control-Allow-Headers:
+                description: The supported request headers.
+                type: string
+                required: true
+                example: |
+                  Authorization
+      get:
+        description: Retrieve the volume usage history for a tenant.
+        securedBy: [basic]
+        responses:
+          200:
+            description: The volume usage history metrics.
+            headers:
+              Content-Type:
+                description: The data format of the response.
+                type: string
+                required: true
+                example: |
+                  application/json
+              Access-Control-Allow-Origin:
+                description: The supported XHR origins.
+                type: string
+                required: true
+                example: |
+                  *
+            body:
+              application/json:
+                schema: !include tenants/id/metrics/volume_used/get_200_schema.json
+                example: !include tenants/id/metrics/volume_used/get_200_example.json
+          401:
+            description: Failed to authenticate the request.
+            headers:
+              Content-Type:
+                description: The data format of the response.
+                type: string
+                required: true
+                example: |
+                  application/json
+              Access-Control-Allow-Origin:
+                description: The supported XHR origins.
+                type: string
+                required: true
+                example: |
+                  *
+              WWW-Authenticate:
+                description: The basic authentication realm.
+                type: string
+                required: true
+                example: |
+                  Basic realm ="Veeam Cloud Connect - cloudPlaza"
+          404:
+            description: The tenant id was not found.
+            headers:
+              Content-Type:
+                description: The data format of the response.
+                type: string
+                required: true
+                example: |
+                  application/json
+              Access-Control-Allow-Origin:
+                description: The supported XHR origins.
+                type: string
+                required: true
+                example: |
+                  *
+            body:
+              application/json:
+                schema: !include generic/error_schema.json
+                example: !include generic/error_example.json

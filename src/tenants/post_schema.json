@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "required": [
+    "subscription_id",
+    "username",
+    "password",
+    "email",
+    "volume_quota"
+  ],
+  "properties": {
+    "subscription_id": {
+      "description": "The unique identifier of the subscription to assign the tenant to.",
+      "type": "integer"
+    },
+    "username": {
+      "description": "The username of the tenant.",
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 50
+    },
+    "password": {
+      "description": "The password of the tenant.",
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 50
+    },
+    "email": {
+      "description": "The email of the tenant.",
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 60
+    },
+    "volume_quota": {
+      "description": "The quota to assign to the tenant.",
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "array",
+  "required": [
+    "id",
+    "status",
+    "catalog_id",
+    "period_start",
+    "created_at",
+    "updated_at"
+  ],
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "description": "The unique identifier of the subscription.",
+        "type": "integer"
+      },
+      "status": {
+        "description": "The status of the subscription.",
+        "type": "string",
+        "enum": [
+          "trial",
+          "active",
+          "expired",
+          "suspended_invoice_overdue"
+        ]
+      },
+      "catalog_id": {
+        "description": "The unique identifier of the catalog entry.",
+        "type": "integer"
+      },
+      "period_start": {
+        "description": "The date the subscription was started.",
+        "type": "string",
+        "pattern": "^(19|20)\\d\\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$"
+      },
+      "period_expire": {
+        "description": "The date the subscription will expire; only applicable on pre-paid subscriptions.",
+        "type": "string",
+        "pattern": "^(19|20)\\d\\d-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$"
+      },
+      "sku_quantity": {
+        "description": "The SKU quantity; only applicable on pre-paid subscriptions.",
+        "type": "integer"
+      },
+      "sku_used": {
+        "description": "The amount SKU assigned to tenants; only applicable if the value is greater than `0`.",
+        "type": "integer"
+      },
+      "$catalog": {
+        "description": "A reference view of the catalog entry.",
+        "type": "object"
+      },
+      "$tenants": {
+        "description": "A reference view of the tenants, excluding its $subscription reference view.",
+        "type": "array"
+      },
+      "created_at": {
+        "description": "The date the subscription was created.",
+        "type": "string"
+      },
+      "updated_at": {
+        "description": "The date the subscription was last modified.",
+        "type": "string"
+      }
+    }
+  }
+}

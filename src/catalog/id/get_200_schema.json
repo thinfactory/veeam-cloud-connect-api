@@ -1,0 +1,131 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "required": [
+    "id",
+    "sku_label",
+    "sku_tag",
+    "sku_description",
+    "sku_orderable",
+    "sku_quantity_max",
+    "sku_price",
+    "sku_trial",
+    "sku_type",
+    "sku_discounts",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "id": {
+      "description": "The unique identifier of the SKU.",
+      "type": "integer"
+    },
+    "sku_label": {
+      "description": "The label of the SKU.",
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 20
+    },
+    "sku_tag": {
+      "description": "The short tag identifier of the SKU.",
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 100
+    },
+    "sku_description": {
+      "description": "The long description of the SKU.",
+      "type": "string"
+    },
+    "sku_orderable": {
+      "description": "Identifies whether the SKU can be ordered.",
+      "type": "boolean"
+    },
+    "sku_quantity_max": {
+      "description": "The SKU limit when pre-paid for a fixed period.",
+      "type": "integer"
+    },
+    "sku_price": {
+      "description": "The unit price of the SKU.",
+      "type": "number"
+    },
+    "sku_trial": {
+      "description": "The SKU trial period, free of charge.",
+      "type": "integer"
+    },
+    "sku_type": {
+      "description": "The billing type of the SKU.",
+      "type": "string",
+      "enum": [
+        "subscription",
+        "one-time"
+      ]
+    },
+    "sku_discounts": {
+      "description": "The SKU discounts when pre-paid for a fixed period; only applicable if discounts are applicable.",
+      "type": "object",
+      "items": {
+        "type": "number"
+      }
+    },
+    "properties": {
+      "description": "An object with all the unique properties of the SKU.",
+      "type": "object",
+      "properties": {
+        "vcc_hostname": {
+          "description": "The service hostname for Veeam Cloud Connect; only applicable if the service is Veeam Cloud Connect.",
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 100
+        },
+        "vcc_wan_acceleration": {
+          "description": "Identifies whether WAN acceleration is enabled; only applicable if the service is Veeam Cloud Connect.",
+          "type": "boolean"
+        },
+        "datacenter_tag": {
+          "description": "The SKU datacenter location tag; only applicable if the service is Veeam Cloud Connect.",
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 5
+        },
+        "datacenter_name": {
+          "description": "The SKU datacenter name; only applicable if the service is Veeam Cloud Connect.",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 60
+        },
+        "datacenter_address": {
+          "description": "The SKU datacenter address; only applicable if the service is Veeam Cloud Connect.",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 60
+        },
+        "datacenter_zip": {
+          "description": "The SKU datacenter address zip code; only applicable if the service is Veeam Cloud Connect.",
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 30
+        },
+        "datacenter_city": {
+          "description": "The SKU datacenter address city; only applicable if the service is Veeam Cloud Connect.",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 30
+        },
+        "datacenter_country": {
+          "description": "The SKU datacenter address country; only applicable if the service is Veeam Cloud Connect.",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 30
+        }
+      }
+    },
+    "created_at": {
+      "description": "The date the catalog entry was created.",
+      "type": "string"
+    },
+    "updated_at": {
+      "description": "The date the catalog entry was last modified.",
+      "type": "string"
+    }
+  }
+}

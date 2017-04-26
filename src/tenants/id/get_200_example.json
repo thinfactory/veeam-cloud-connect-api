@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "status": "active",
+  "subscription_id": 1,
+  "username": "google vcc trial",
+  "email": "vcc_trial@google.com",
+  "volume_name": "VCC-VDM0001-Z",
+  "volume_quota": 100,
+  "volume_used": 12.1,
+  "volume_available": 88.9,
+  "created_at": "2015-07-17 09:54:00",
+  "updated_at": "2015-07-17 09:54:00"
+}
